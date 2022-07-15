@@ -19,7 +19,7 @@ function App() {
   const [disabled, setDisabled] = useState(false)
 
   // shuffle cards for new game
-  const shuffleCards = () => {
+  const shuffleCards = useCallback(() => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map(card => ({ ...card, id: Math.random() }))
@@ -28,7 +28,7 @@ function App() {
     setChoiceTwo(null)
     setCards(shuffledCards)
     setTurns(0)
-  }
+  }, []);
 
   // handle a choice
   const handleChoice = (card) => {
@@ -70,7 +70,7 @@ function App() {
   // start new game automagically
   useEffect(() => {
     shuffleCards()
-  }, [])
+  }, [shuffleCards])
 
   return (
     <div className="App">
